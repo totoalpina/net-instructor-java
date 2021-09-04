@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Net-Instructor</title>
+    <!-- Bootstrap core CSS -->
+    <div th:replace="base :: css"></div>
+
+</head>
+<body style="background-color: #c6cdd2">
+<section>
+    <div th:replace="header :: navigation-bar">
+        header
+    </div>
+</section>
+
+<header>
+    <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+        <ol class="carousel-indicators">
+            <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+            <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+            <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+        </ol>
+        <div class="carousel-inner" role="listbox">
+            <!-- Slide One - Set the background image for this slide in the line below -->
+            <div class="carousel-item active" style="background-image: url('/img/masina_scoala.jpg')">
+                <div class="carousel-caption d-none d-md-block">
+                    <h3>Eficienta</h3>
+                    <p>Informatia oricand alaturi de voi.</p>
+                </div>
+            </div>
+            <!-- Slide Two - Set the background image for this slide in the line below -->
+            <div class="carousel-item" style="background-image: url('/img/scoala_motoare_start.jpg')">
+                <div class="carousel-caption d-none d-md-block">
+                    <h3>Profesionalism</h3>
+                    <p>Voi predati, noi va asistam.</p>
+                </div>
+            </div>
+            <!-- Slide Three - Set the background image for this slide in the line below -->
+            <div class="carousel-item" style="background-image: url('/img/poligon_in_ploaie.jpg')">
+                <div class="carousel-caption d-none d-md-block">
+                    <h3>Profesionalism</h3>
+                    <p>Voi predati, noi va asistam.</p>
+                </div>
+            </div>
+        </div>
+        <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+        </a>
+        <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+        </a>
+    </div>
+</header>
+
+
+<!-- Page Content -->
+<div class="container">
+    <hr>
+
+    <div th:if="${param.success}" class="alert-success text-black">
+        You have been successfully logged in.
+    </div>
+    <div th:if="${param.registered}" class="alert-success text-black">
+        You have successfully registered an account.
+    </div>
+    <h1 class="my-4">Bine ati venit la Net-Instructor</h1>
+
+    <!-- Marketing Icons Section -->
+    <div class="row">
+        <div class="col-lg-4 mb-4">
+            <div class="card h-100">
+                <h4 class="card-header">Eficienta</h4>
+                <div class="card-body">
+                    <p class="card-text">Va oferim toate uneltele pentru o gestionare eficienta a activitatii
+                        dumneavoastra.</p>
+                </div>
+                <div class="card-footer">
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4 mb-4">
+            <div class="card h-100">
+                <h4 class="card-header">Profesionalism</h4>
+                <div class="card-body">
+                    <p class="card-text"></p>
+                </div>
+                <div class="card-footer">
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4 mb-4">
+            <div class="card h-100">
+                <h4 class="card-header">Eficienta</h4>
+                <div class="card-body">
+                    <p class="card-text"></p>
+                </div>
+                <div class="card-footer">
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /.row -->
+
+    <hr>
+
+    <!-- Features Section -->
+    <div class="row">
+        <div class="col-lg-6">
+            <h2>Net-Instructor</h2>
+            <p>Aplicatie de gestiune a activitatii de scolarizare a instructorilor auto:</p>
+            <ul>
+                <li>
+                    <strong>Ce va oferim :</strong>
+                </li>
+                <li>Mobilitate</li>
+                <li>Gestiune centralizata</li>
+                <li>Accesarea informatiilor multidevice ( Laptop, Tableta, Telefon )</li>
+                <li>Tehnologii in pas cu vremurile in care traim</li>
+            </ul>
+            <p></p>
+        </div>
+        <div class="col-lg-6">
+            <img class="img-fluid rounded" th:src="@{/img/poligon_moto.jpg}" alt="">
+        </div>
+    </div>
+
+    <hr>
+
+</div>
+<!-- /.container -->
+
+
+<div th:replace="footer::footer"></div>
+
+<div th:replace="base :: script"></div>
+
+</body>
+
+</html>

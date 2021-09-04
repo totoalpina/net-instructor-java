@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Cont nou</title>
+    <!-- Bootstrap core CSS -->
+    <div th:replace="base :: css"></div>
+
+</head>
+<body style="background-color: #c6cdd2">
+<section>
+    <div th:replace="header :: navigation-bar">
+        header
+    </div>
+</section>
+<div class="container">
+    <h1 class="mt-4 mb-3">Inregistrare cont nou
+        <small></small>
+    </h1>
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a th:href="@{/index}">Home</a>
+        </li>
+        <li class="breadcrumb-item active">Cont nou</li>
+    </ol>
+    <hr>
+    <form th:action="@{/register}" th:object="${userDto}" method="post">
+        <div class="row">
+            <div class="col-lg-4 mb-4">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <label for="inputEmail">Email</label><br>
+                        <div class="col-sm-12">
+                            <input type="email" class="form-control bg-transparent text-black" th:field="*{email}"
+                                   id="inputEmail" required
+                                   placeholder="email@email.ro">
+                            <span class="form-control alert alert-danger text-black"
+                                  th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
+                        </div>
+                        <br>
+                        <label for="password">Parola</label><br>
+                        <div class="col-sm-12">
+                            <input type="password" class="form-control bg-transparent text-black" th:field="*{password}"
+                                   id="password" required
+                                   placeholder="min 6 characters">
+                            <span class="form-control alert alert-danger text-black"
+                                  th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></span>
+                        </div>
+                        <br>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 mb-4">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <label for="firstName">Prenume</label><br>
+                        <div class="col-sm-12">
+                            <input type="text" class="form-control bg-transparent text-black" th:field="*{firstName}"
+                                   id="firstName" required>
+                            <span class="form-control alert alert-danger text-black"
+                                  th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"></span>
+                        </div>
+                        <br>
+                        <label for="lastName">Nume</label><br>
+                        <div class="col-sm-12">
+                            <input type="text" class="form-control bg-transparent text-black" th:field="*{lastName}"
+                                   id="lastName" required>
+                            <span class="form-control alert alert-danger text-black"
+                                  th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"></span>
+                        </div>
+                        <br>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="success">
+            <button type="submit" class="btn btn-primary">Inregistrati</button>
+        </div>
+    </form>
+    <!-- /.row -->
+    <hr style="background-color: #f59321">
+
+    <div class="row">
+        <div class="col-lg-6">
+            <h2>Net-Instructor</h2>
+            <p>Aplicatie de gestiune a activitatii de scolarizare a instructorilor auto:</p>
+            <ul>
+                <li>
+                    <strong>Ce va oferim :</strong>
+                </li>
+                <li>Mobilitate</li>
+                <li>Gestiune centralizata</li>
+                <li>Accesarea informatiilor multidevice ( Laptop, Tableta, Telefon )</li>
+                <li>Tehnologii in pas cu vremurile in care traim</li>
+            </ul>
+            <p></p>
+        </div>
+        <div class="col-lg-6">
+            <img class="img-fluid rounded" th:src="@{/img/pic01.jpg}" alt="">
+        </div>
+    </div>
+    <!-- /.row -->
+    <hr>
+</div>
+
+
+<div th:replace="footer::footer"></div>
+<div th:replace="base :: script"></div>
+
+</body>
+</html>

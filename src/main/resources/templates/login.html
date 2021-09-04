@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Net-Instructor</title>
+    <!-- Bootstrap core CSS -->
+    <div th:replace="base :: css"></div>
+
+</head>
+<body style="background-color: #c6cdd2">
+<section>
+    <div th:replace="header :: navigation-bar">
+        header
+    </div>
+</section>
+
+<div class="container">
+    <h1 class="mt-4 mb-3">Conectare
+        <small></small>
+    </h1>
+
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a th:href="@{/index}">Home</a>
+        </li>
+        <li class="breadcrumb-item active">Intrati in cont</li>
+    </ol>
+    <hr>
+    <div th:if="${param.registered}" class="alert-success text-black">
+        You have successfully registered an account.
+    </div>
+    <div class="row">
+        <div class="col-lg-8 mb-6">
+            <h3>Daca aveti deja un cont folostiti credentialele pentru logare</h3>
+            <h6>In cazul in care nu aveti cont, apasati <a th:href="@{/cont_nou}"><span
+                    style="text-decoration: underline; font-weight: bold">Creaza cont</span></a> pentru a va inregistra
+            </h6>
+            <hr>
+            <form method="post" th:action="@{/login}">
+                <div class="mb-6">
+                    <div th:if="${param.logout}" class="alert-success text-black">
+                        You have been successfully logged out.
+                    </div>
+                </div>
+                <div class="mb-6">
+                    <div th:if="${param.fail}" class="alert-success text-black">
+                        Incorrect username or password. Please try again.
+                    </div>
+                </div>
+                <div class="mb-6">
+                    <label for="username" class="form-label text-blue">Username</label>
+                    <input class="form-control bg-transparent text-white" type="email" id="username" name="username" required/>
+                </div>
+                <hr>
+                <div class="mb-6">
+                    <label for="password" class="form-label text-blue">Password</label>
+                    <input class="form-control bg-transparent text-white" type="password" id="password" name="password" required/>
+                </div>
+                <br>
+                <div class="mb-6">
+                    <button style="width: 100%" type="submit" class="btn btn-outline-primary text-blue">Login</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+    <!-- /.row -->
+    <hr style="background-color: #f59321">
+
+    <div class="row">
+        <div class="col-lg-6">
+            <h2>Net-Instructor</h2>
+            <p>Aplicatie de gestiune a activitatii de scolarizare a instructorilor auto:</p>
+            <ul>
+                <li>
+                    <strong>Ce va oferim :</strong>
+                </li>
+                <li>Mobilitate</li>
+                <li>Gestiune centralizata</li>
+                <li>Accesarea informatiilor multidevice ( Laptop, Tableta, Telefon )</li>
+                <li>Tehnologii in pas cu vremurile in care traim</li>
+            </ul>
+            <p></p>
+        </div>
+        <div class="col-lg-6">
+            <img class="img-fluid rounded" th:src="@{/img/poligon_moto.jpg}" alt="">
+        </div>
+    </div>
+    <!-- /.row -->
+
+    <hr>
+
+
+    <div th:replace="footer::footer"></div>
+
+    <div th:replace="base :: script"></div>
+</div>
+</body>
+
+</html>
+
+
+
