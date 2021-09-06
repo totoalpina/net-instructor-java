@@ -3,6 +3,7 @@ package ro.netinstructor.models;
 import ro.netinstructor.enums.UserRole;
 import ro.netinstructor.validators.UniqueEmail;
 
+import javax.persistence.Column;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
@@ -23,6 +24,10 @@ public class UserDto {
     @Size(min = 1, max = 60)
     private String lastName;
     private UserRole userRole;
+
+    private String verificationCode;
+
+    private boolean enabled;
 
     public UserDto() {
     }

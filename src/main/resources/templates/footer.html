@@ -13,7 +13,7 @@
 <div th:fragment="footer">
     <footer class="py-5 bg-dark">
         <div class="container">
-            <p class="m-0 text-center" style="color: #f59321" th:text="'Copyright &copy; Net-Instructor.ro &nbsp;' + ${#dates.year(#dates.createNow())}">Copyright &copy; Net-Instructor.ro &nbsp;</span></p>
+            <p class="m-0 text-center" style="color: #f59321" th:text="'Copyright &copy; Net-Instructor.ro &nbsp;' + ${#dates.year(#dates.createNow())}">Copyright &copy; Net-Instructor.ro &nbsp; ${#dates.year(#dates.createNow())}</span></p>
         </div>
         <!-- /.container -->
     </footer>

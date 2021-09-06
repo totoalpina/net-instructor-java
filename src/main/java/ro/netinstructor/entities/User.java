@@ -33,6 +33,12 @@ public class User {
     @Enumerated(EnumType.STRING)
     private UserRole userRole;
 
+    @Column(name = "verification_code", length = 64)
+    private String verificationCode;
+
+    @Column(name = "enabled")
+    private boolean enabled;
+
     public User() {
     }
 
@@ -51,6 +57,17 @@ public class User {
         this.firstName = firstName;
         this.lastName = lastName;
         this.userRole = userRole;
+    }
+
+    public User(Long id, String email, String password, String firstName, String lastName, UserRole userRole, String verificationCode, boolean enabled) {
+        this.id = id;
+        this.email = email;
+        this.password = password;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.userRole = userRole;
+        this.verificationCode = verificationCode;
+        this.enabled = enabled;
     }
 
     public Long getId() {
@@ -93,11 +110,31 @@ public class User {
         this.lastName = lastName;
     }
 
+    public String getVerificationCode() {
+        return verificationCode;
+    }
+
+    public void setVerificationCode(String verificationCode) {
+        this.verificationCode = verificationCode;
+    }
+
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
+    }
+
     public UserRole getUserRole() {
         return userRole;
     }
 
     public void setUserRole(UserRole userRole) {
         this.userRole = userRole;
+    }
+
+    public String getFullName() {
+        return this.getFirstName() + " " + this.getLastName();
     }
 }

@@ -1,3 +1,7 @@
 #inputEmail, #password, #firstName, #lastName {
     width: 100%;
 }
+
+#lbl_login_user, #lbl_login_pass, #lbl_contact_msg, #lbl_contact_email, #lbl_contact_name {
+    color: rgb(20, 85, 228);
+}

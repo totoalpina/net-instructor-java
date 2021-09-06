@@ -68,7 +68,13 @@
         You have been successfully logged in.
     </div>
     <div th:if="${param.registered}" class="alert-success text-black">
-        You have successfully registered an account.
+        You have successfully registered an account. Please check your email for activation.
+    </div>
+    <div th:if="${param.verify_success}" class="alert-success text-black">
+        You account has been activated. Please use <a th:href="@{/login}">Sign in</a> page to access application.
+    </div>
+    <div th:if="${param.verify_fail}" class="alert-success text-black">
+        Something went wrong.
     </div>
     <h1 class="my-4">Bine ati venit la Net-Instructor</h1>
 
