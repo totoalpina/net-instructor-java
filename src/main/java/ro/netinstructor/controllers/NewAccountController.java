@@ -10,7 +10,9 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import ro.netinstructor.models.CompanyDto;
 import ro.netinstructor.models.UserDto;
+import ro.netinstructor.services.CompanyService;
 import ro.netinstructor.services.UserService;
 
 import javax.mail.MessagingException;
@@ -26,22 +28,28 @@ public class NewAccountController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private CompanyService companyService;
+
     @GetMapping("/cont_nou")
     @PreAuthorize("permitAll()")
     public String newAccount(final Model model) {
         model.addAttribute("userDto", new UserDto());
+        model.addAttribute("companyDto", new CompanyDto());
         return "cont_nou";
     }
 
     @PostMapping("/register")
-    public String saveUser(@Valid final UserDto userDto, final BindingResult bindingResult, HttpServletRequest request, final Model model)
+    public String saveUser(@Valid final UserDto userDto, @Valid final CompanyDto companyDto, final BindingResult bindingResult, HttpServletRequest request, final Model model)
             throws UnsupportedEncodingException, MessagingException {
         if (bindingResult.hasErrors()) {
             LOGGER.debug("Errors in the form : {}", bindingResult);
             model.addAttribute("userDto", userDto);
+            model.addAttribute("companyDto", companyDto);
             return "cont_nou";
         } else {
             userService.save(userDto, getSiteURL(request));
+            companyService.registerCompany(companyDto);
             return "redirect:/index?registered";
         }
     }

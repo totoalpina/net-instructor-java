@@ -28,57 +28,91 @@
         <li class="breadcrumb-item active">Cont nou</li>
     </ol>
     <hr>
-    <form th:action="@{/register}" th:object="${userDto}" method="post">
-        <div class="row">
-            <div class="col-lg-4 mb-4">
-                <div class="card h-100">
-                    <div class="card-body">
-                        <label for="inputEmail">Email</label><br>
-                        <div class="col-sm-12">
-                            <input type="email" class="form-control bg-transparent text-black" th:field="*{email}"
-                                   id="inputEmail" required
-                                   placeholder="email@email.ro">
-                            <span class="form-control alert alert-danger text-black"
-                                  th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
+    <form th:action="@{/register}"  method="post">
+        <div >
+            <div class="row">
+                <div class="col-lg-4 mb-4">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <label for="inputEmail">Email</label><br>
+                            <div class="col-sm-12">
+                                <input type="email" class="form-control bg-transparent text-black" th:field="*{userDto.email}"
+                                       id="inputEmail" required
+                                       placeholder="email@email.ro">
+                                <span class="form-control alert alert-danger text-black"
+                                      th:if="${#fields.hasErrors('userDto.email')}" th:errors="*{userDto.email}"></span>
+                            </div>
+                            <br>
+                            <label for="password">Parola</label><br>
+                            <div class="col-sm-12">
+                                <input type="password" class="form-control bg-transparent text-black"
+                                       th:field="*{userDto.password}"
+                                       id="password" required
+                                       placeholder="min 6 characters">
+                                <span class="form-control alert alert-danger text-black"
+                                      th:if="${#fields.hasErrors('userDto.password')}" th:errors="*{userDto.password}"></span>
+                            </div>
+                            <br>
                         </div>
-                        <br>
-                        <label for="password">Parola</label><br>
-                        <div class="col-sm-12">
-                            <input type="password" class="form-control bg-transparent text-black" th:field="*{password}"
-                                   id="password" required
-                                   placeholder="min 6 characters">
-                            <span class="form-control alert alert-danger text-black"
-                                  th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></span>
+                    </div>
+                </div>
+                <div class="col-lg-4 mb-4">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <label for="firstName">Prenume</label><br>
+                            <div class="col-sm-12">
+                                <input type="text" class="form-control bg-transparent text-black"
+                                       th:field="*{userDto.firstName}"
+                                       id="firstName" required>
+                                <span class="form-control alert alert-danger text-black"
+                                      th:if="${#fields.hasErrors('userDto.firstName')}" th:errors="*{userDto.firstName}"></span>
+                            </div>
+                            <br>
+                            <label for="lastName">Nume</label><br>
+                            <div class="col-sm-12">
+                                <input type="text" class="form-control bg-transparent text-black" th:field="*{userDto.lastName}"
+                                       id="lastName" required>
+                                <span class="form-control alert alert-danger text-black"
+                                      th:if="${#fields.hasErrors('userDto.lastName')}" th:errors="*{userDto.lastName}"></span>
+                            </div>
+                            <br>
                         </div>
-                        <br>
+                    </div>
+                </div>
+                <div class="col-lg-4 mb-4">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <label for="name">Company Name</label><br>
+                            <div class="col-sm-12">
+                                <input type="text" class="form-control bg-transparent text-black"
+                                       th:field="*{companyDto.name}"
+                                       id="name" required>
+                                <span class="form-control alert alert-danger text-black"
+                                      th:if="${#fields.hasErrors('companyDto.name')}" th:errors="*{companyDto.name}"></span>
+                            </div>
+                            <br>
+                            <label for="address">Comapany Address</label><br>
+                            <div class="col-sm-12">
+                                <input type="text" class="form-control bg-transparent text-black" th:field="*{companyDto.address}"
+                                       id="address" required>
+                                <span class="form-control alert alert-danger text-black"
+                                      th:if="${#fields.hasErrors('companyDto.address')}" th:errors="*{companyDto.address}"></span>
+                            </div>
+                            <label for="cif">Company CIF</label><br>
+                            <div class="col-sm-12">
+                                <input type="text" class="form-control bg-transparent text-black" th:field="*{companyDto.cif}"
+                                       id="cif" required>
+                                <span class="form-control alert alert-danger text-black"
+                                      th:if="${#fields.hasErrors('companyDto.cif')}" th:errors="*{companyDto.cif}"></span>
+                            </div>
+                            <br>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="col-lg-4 mb-4">
-                <div class="card h-100">
-                    <div class="card-body">
-                        <label for="firstName">Prenume</label><br>
-                        <div class="col-sm-12">
-                            <input type="text" class="form-control bg-transparent text-black" th:field="*{firstName}"
-                                   id="firstName" required>
-                            <span class="form-control alert alert-danger text-black"
-                                  th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"></span>
-                        </div>
-                        <br>
-                        <label for="lastName">Nume</label><br>
-                        <div class="col-sm-12">
-                            <input type="text" class="form-control bg-transparent text-black" th:field="*{lastName}"
-                                   id="lastName" required>
-                            <span class="form-control alert alert-danger text-black"
-                                  th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"></span>
-                        </div>
-                        <br>
-                    </div>
-                </div>
+            <div id="success">
+                <button type="submit" class="btn btn-primary">Inregistrati</button>
             </div>
-        </div>
-        <div id="success">
-            <button type="submit" class="btn btn-primary">Inregistrati</button>
         </div>
     </form>
     <!-- /.row -->

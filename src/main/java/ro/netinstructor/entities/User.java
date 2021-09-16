@@ -3,6 +3,7 @@ package ro.netinstructor.entities;
 
 import org.springframework.lang.NonNull;
 import ro.netinstructor.enums.UserRole;
+import ro.netinstructor.utility.Utilities;
 
 import javax.persistence.*;
 
@@ -14,7 +15,6 @@ public class User {
 
     @Id
     @Column
-    @GeneratedValue
     private Long id;
 
     @Column(length = 100)
@@ -43,6 +43,7 @@ public class User {
     }
 
     public User(@NonNull String email, @NonNull String password, String firstName, String lastName, UserRole userRole) {
+        this.id = Utilities.createID();
         this.email = email;
         this.password = password;
         this.firstName = firstName;
@@ -50,17 +51,8 @@ public class User {
         this.userRole = userRole;
     }
 
-    public User(Long id, @NonNull String email, @NonNull String password, String firstName, String lastName, UserRole userRole) {
-        this.id = id;
-        this.email = email;
-        this.password = password;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.userRole = userRole;
-    }
-
-    public User(Long id, String email, String password, String firstName, String lastName, UserRole userRole, String verificationCode, boolean enabled) {
-        this.id = id;
+    public User( String email, String password, String firstName, String lastName, UserRole userRole, String verificationCode, boolean enabled) {
+        this.id = Utilities.createID();
         this.email = email;
         this.password = password;
         this.firstName = firstName;
@@ -74,8 +66,8 @@ public class User {
         return id;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setId() {
+        this.id = Utilities.createID();
     }
 
     public String getEmail() {
