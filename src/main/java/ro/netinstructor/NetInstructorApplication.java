@@ -9,5 +9,4 @@ public class NetInstructorApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(NetInstructorApplication.class, args);
 	}
-
 }

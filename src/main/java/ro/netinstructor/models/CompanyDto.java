@@ -1,5 +1,7 @@
 package ro.netinstructor.models;
 
+import ro.netinstructor.validators.CifValid;
+
 import javax.validation.constraints.NotBlank;
 
 public class CompanyDto {
@@ -11,6 +13,7 @@ public class CompanyDto {
     private String address;
 
     @NotBlank
+    @CifValid
     private String cif;
 
     public CompanyDto() {

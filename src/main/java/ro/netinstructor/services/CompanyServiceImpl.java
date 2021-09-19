@@ -35,4 +35,5 @@ public class CompanyServiceImpl implements CompanyService{
 
         return "n/a".equals(company.getCif());
     }
+
 }
