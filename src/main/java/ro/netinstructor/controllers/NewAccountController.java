@@ -10,10 +10,13 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import ro.netinstructor.entities.Company;
 import ro.netinstructor.models.CompanyDto;
 import ro.netinstructor.models.UserDto;
+import ro.netinstructor.repositries.CompanyRepository;
 import ro.netinstructor.services.CompanyService;
 import ro.netinstructor.services.UserService;
+import ro.netinstructor.utility.Utilities;
 
 import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
@@ -30,6 +33,9 @@ public class NewAccountController {
 
     @Autowired
     private CompanyService companyService;
+
+    @Autowired
+    private CompanyRepository companyRepository;
 
     @GetMapping("/cont_nou")
     @PreAuthorize("permitAll()")
@@ -48,9 +54,15 @@ public class NewAccountController {
             model.addAttribute("companyDto", companyDto);
             return "cont_nou";
         } else {
-            userService.save(userDto, getSiteURL(request));
-            companyService.registerCompany(companyDto);
-            return "redirect:/index?registered";
+            if (Utilities.verificareCifAnaf(companyDto.getCif(), companyDto.getName())) {
+                companyService.registerCompany(companyDto);
+                String ciff = companyDto.getCif();
+                Company company = companyRepository.findByCif(ciff).get();
+                userService.save(userDto, getSiteURL(request), company);
+                return "redirect:/index?registered";
+            } else {
+                return "redirect:/cont_nou?fail";
+            }
         }
     }
 

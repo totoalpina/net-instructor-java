@@ -9,7 +9,7 @@ import ro.netinstructor.repositries.CompanyRepository;
 import java.util.Optional;
 
 @Service
-public class CompanyServiceImpl implements CompanyService{
+public class CompanyServiceImpl implements CompanyService {
 
     @Autowired
     private CompanyRepository companyRepository;
@@ -20,7 +20,7 @@ public class CompanyServiceImpl implements CompanyService{
     }
 
     public boolean registerCompany(CompanyDto companyDto) {
-        if (verifyCompany(companyDto.getCif())) {
+        if (!verifyCompany(companyDto.getCif())) {
             Company company = new Company(companyDto.getName(), companyDto.getAddress(), companyDto.getCif());
             companyRepository.save(company);
             return true;
@@ -33,7 +33,6 @@ public class CompanyServiceImpl implements CompanyService{
         Company company = companyRepository.findByCif(companyId)
                 .orElseGet(() -> new Company("n/a", "n/a", "n/a"));
 
-        return "n/a".equals(company.getCif());
+        return !"n/a".equals(company.getCif());
     }
-
 }

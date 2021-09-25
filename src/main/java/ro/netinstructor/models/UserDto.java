@@ -1,5 +1,6 @@
 package ro.netinstructor.models;
 
+import ro.netinstructor.entities.Company;
 import ro.netinstructor.enums.UserRole;
 import ro.netinstructor.validators.UniqueEmail;
 
@@ -24,6 +25,8 @@ public class UserDto {
     private String lastName;
     private UserRole userRole;
 
+    private Company company;
+
     private String verificationCode;
 
     private boolean enabled;
@@ -37,12 +40,13 @@ public class UserDto {
         this.lastName = lastName;
     }
 
-    public UserDto(String email, String password, String firstName, String lastName, UserRole userRole) {
+    public UserDto(String email, String password, String firstName, String lastName, UserRole userRole, Company company) {
         this.email = email;
         this.password = password;
         this.firstName = firstName;
         this.lastName = lastName;
         this.userRole = userRole;
+        this.company = company;
     }
 
     public String getEmail() {
@@ -83,6 +87,14 @@ public class UserDto {
 
     public void setUserRole(UserRole userRole) {
         this.userRole = userRole;
+    }
+
+    public Company getCompany() {
+        return company;
+    }
+
+    public void setCompany(Company company) {
+        this.company = company;
     }
 }
 

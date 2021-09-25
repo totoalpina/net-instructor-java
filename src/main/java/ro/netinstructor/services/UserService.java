@@ -1,6 +1,7 @@
 package ro.netinstructor.services;
 
 import org.springframework.data.jpa.repository.Query;
+import ro.netinstructor.entities.Company;
 import ro.netinstructor.entities.User;
 import ro.netinstructor.models.UserDto;
 
@@ -14,7 +15,7 @@ public interface UserService {
 
     Optional<UserDto> findByEmail(String email);
 
-    User save(UserDto userDto, String siteUrl) throws UnsupportedEncodingException, MessagingException;
+    User save(UserDto userDto, String siteUrl, Company company) throws UnsupportedEncodingException, MessagingException;
 
     User findByVerificationCode(String code);
 

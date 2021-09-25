@@ -2,10 +2,10 @@ package ro.netinstructor.entities;
 
 import ro.netinstructor.utility.Utilities;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.LinkedHashSet;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 public class Company {
@@ -23,6 +23,13 @@ public class Company {
     @Column(name = "cif")
     private String cif;
 
+//    @Column(name = "email")
+//    private String email;
+
+    @OneToMany(mappedBy = "company", fetch = FetchType.LAZY
+            , cascade = CascadeType.ALL)
+    private Set<User> users;
+
     public Company() {
     }
 
@@ -31,6 +38,7 @@ public class Company {
         this.name = name;
         this.address = address;
         this.cif = cif;
+        this.users = new LinkedHashSet<>();
     }
 
     public Company(String name, String address, String cif) {
@@ -38,14 +46,11 @@ public class Company {
         this.name = name;
         this.address = address;
         this.cif = cif;
+        this.users = new LinkedHashSet<>();
     }
 
     public Long getId() {
         return id;
-    }
-
-    public void setId() {
-        this.id = Utilities.createID();
     }
 
     public String getName() {

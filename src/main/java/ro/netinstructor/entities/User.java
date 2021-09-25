@@ -39,19 +39,24 @@ public class User {
     @Column(name = "enabled")
     private boolean enabled;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "company_id")
+    private Company company;
+
     public User() {
     }
 
-    public User(@NonNull String email, @NonNull String password, String firstName, String lastName, UserRole userRole) {
+    public User(@NonNull String email, @NonNull String password, String firstName, String lastName, UserRole userRole, Company company) {
         this.id = Utilities.createID();
         this.email = email;
         this.password = password;
         this.firstName = firstName;
         this.lastName = lastName;
         this.userRole = userRole;
+        this.company = company;
     }
 
-    public User( String email, String password, String firstName, String lastName, UserRole userRole, String verificationCode, boolean enabled) {
+    public User(@NonNull String email, @NonNull String password, String firstName, String lastName, UserRole userRole, String verificationCode, boolean enabled) {
         this.id = Utilities.createID();
         this.email = email;
         this.password = password;
@@ -124,6 +129,14 @@ public class User {
 
     public void setUserRole(UserRole userRole) {
         this.userRole = userRole;
+    }
+
+    public Company getCompany() {
+        return company;
+    }
+
+    public void setCompany(Company company) {
+        this.company = company;
     }
 
     public String getFullName() {

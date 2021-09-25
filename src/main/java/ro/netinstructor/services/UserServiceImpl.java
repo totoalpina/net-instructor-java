@@ -6,6 +6,7 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import ro.netinstructor.entities.Company;
 import ro.netinstructor.entities.User;
 import ro.netinstructor.enums.UserRole;
 import ro.netinstructor.models.UserDto;
@@ -29,6 +30,8 @@ public class UserServiceImpl implements UserService {
     private JavaMailSender mailSender;
 
 
+
+
     public void register(User user, String siteURL) {
 
     }
@@ -45,16 +48,19 @@ public class UserServiceImpl implements UserService {
                 .map(user -> new UserDto(user.getEmail(), user.getFirstName(), user.getLastName()));
     }
 
-    public User save(UserDto userDto, String siteUrl)
+    public User save(UserDto userDto, String siteUrl, Company company)
             throws UnsupportedEncodingException, MessagingException {
         String randomCode = RandomString.make(64);
+
         User user = new User(userDto.getEmail(),
                 passwordEncoder.encode(userDto.getPassword()),
                 userDto.getFirstName(),
                 userDto.getLastName(),
-                UserRole.USER);
+                UserRole.USER,
+                company);
         user.setVerificationCode(randomCode);
         user.setEnabled(false);
+
         sendVerificationEmail(user, siteUrl);
         return userRepository.save(user);
     }

@@ -1,24 +1,34 @@
 package ro.netinstructor.utility;
 
+import kong.unirest.HttpResponse;
+import kong.unirest.Unirest;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
-import java.util.Date;
+import java.util.*;
 
 public class Utilities {
+
     public static long createID() {
         LocalDateTime localDateTime = LocalDateTime.now();
         ZonedDateTime zdt = ZonedDateTime.of(localDateTime, ZoneId.systemDefault());
         long id = zdt.toInstant().toEpochMilli();
         return id;
     }
-    /** The method verify if a numeric String passed as parameter is valid
+
+    /**
+     * The method verify if a numeric String passed as parameter is valid
      *
      * @param cif string - The CIF to be verified
      * @return boolean value : true - if "cif" is valid,
-     *                       : false if not
+     * : false if not
      */
     public static boolean verificareCif(String cif) {
         if ("".equals(cif) || cif == null) return false;
@@ -38,7 +48,7 @@ public class Utilities {
         int result = 0;
         while (cifToverify > 0) {
             result += (cifToverify % 10) * (nrControl % 10);
-            cifToverify = cifToverify /10;
+            cifToverify = cifToverify / 10;
             nrControl = nrControl / 10;
         }
 
@@ -48,6 +58,34 @@ public class Utilities {
         }
 
         return rest == cifraDeControl;
+    }
+
+    /**Verify based on the params if the company is real from ANAF .
+     * Method brings information based on the cif in JSON format, and compares if the name
+     * inserted is equal with the value from ANAF
+     *
+     * @param cif String
+     * @param denumire String
+     * @return true if the params match the values from ANAF
+     */
+    public static boolean verificareCifAnaf(String cif, String denumire) {
+        LocalDate date = LocalDate.now();
+        HttpResponse<String> response = Unirest.post("https://webservicesp.anaf.ro/PlatitorTvaRest/api/v5/ws/tva")
+                .header("Content-Type", "application/json")
+                .body("[{\n\"cui\": " + cif + ",\n\"data\":\"" + date + "\"\n}]")
+                .asString();
+
+        JSONObject dateFirma = null;
+        try {
+            JSONParser parse = new JSONParser();
+            JSONObject dataObject = (JSONObject) parse.parse(response.getBody());
+            JSONArray arr = (JSONArray) dataObject.get("found");
+            dateFirma = (JSONObject) arr.get(0);
+        } catch (org.json.simple.parser.ParseException e) {
+            System.out.println(e.getStackTrace());
+        }
+
+        return denumire.equalsIgnoreCase(dateFirma.get("denumire").toString());
     }
 
     private static boolean isCifNumeric(String cif) {
@@ -67,21 +105,22 @@ public class Utilities {
         return true;
     }
 
-    /** The method verify if an numeric String passed as parameter is valid
+    /**
+     * The method verify if an numeric String passed as parameter is valid
      *
      * @param cnp string - The CNP to be verified
      * @return boolean value : true - if cnp is valid,
-     *                       : false if not
+     * : false if not
      */
     public static boolean verificareCnp(String cnp) {
         if (cnp == null || cnp.equals("")) return false;
         if (!isCnpNumeric(cnp)) return false;
         if (cnp.length() != 13) return false;
-        if (Integer.parseInt(cnp.substring(0,1)) == 0) return false;
+        if (Integer.parseInt(cnp.substring(0, 1)) == 0) return false;
         if (!isValid(cnp.substring(1, 7))) return false;
 
         long nrVerificare = 279146358279L;
-        long cnpParsed = Long.parseLong(cnp.substring(0, cnp.length()-1));
+        long cnpParsed = Long.parseLong(cnp.substring(0, cnp.length() - 1));
         long result = 0L;
         while (cnpParsed > 0) {
             result += (cnpParsed % 10) * (nrVerificare % 10);
@@ -91,7 +130,7 @@ public class Utilities {
         long rest = result % 11;
         if (rest == 10) rest = 1L;
 
-        return rest == Integer.parseInt( cnp.substring(12));
+        return rest == Integer.parseInt(cnp.substring(12));
 
     }
 
@@ -104,7 +143,7 @@ public class Utilities {
         return true;
     }
 
-    private static boolean isValid( String str) {
+    private static boolean isValid(String str) {
         String date = str.substring(0, 2) + "/" + str.substring(2, 4) + "/" + str.substring(4);
         String format = "yy/MM/dd";
         Date parseDate = null;
