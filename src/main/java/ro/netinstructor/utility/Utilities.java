@@ -16,6 +16,10 @@ import java.util.*;
 
 public class Utilities {
 
+    private static int CIF_CONTROL_NUMBER = 753217532;
+    private static long CNP_CONTROL_NUMBER = 279146358279L;
+    private static String URL_ANAF = "https://webservicesp.anaf.ro/PlatitorTvaRest/api/v5/ws/tva";
+
     public static long createID() {
         LocalDateTime localDateTime = LocalDateTime.now();
         ZonedDateTime zdt = ZonedDateTime.of(localDateTime, ZoneId.systemDefault());
@@ -43,13 +47,12 @@ public class Utilities {
         if (!isCifNumeric(cif)) return false;
 
         int cifraDeControl = Integer.parseInt(cif) % 10;
-        int nrControl = 753217532;
         int cifToverify = Integer.parseInt(cif) / 10;
         int result = 0;
         while (cifToverify > 0) {
-            result += (cifToverify % 10) * (nrControl % 10);
+            result += (cifToverify % 10) * (CIF_CONTROL_NUMBER % 10);
             cifToverify = cifToverify / 10;
-            nrControl = nrControl / 10;
+            CIF_CONTROL_NUMBER = CIF_CONTROL_NUMBER / 10;
         }
 
         int rest = result * 10 % 11;
@@ -70,7 +73,7 @@ public class Utilities {
      */
     public static boolean verificareCifAnaf(String cif, String denumire) {
         LocalDate date = LocalDate.now();
-        HttpResponse<String> response = Unirest.post("https://webservicesp.anaf.ro/PlatitorTvaRest/api/v5/ws/tva")
+        HttpResponse<String> response = Unirest.post(URL_ANAF)
                 .header("Content-Type", "application/json")
                 .body("[{\n\"cui\": " + cif + ",\n\"data\":\"" + date + "\"\n}]")
                 .asString();
@@ -84,7 +87,7 @@ public class Utilities {
         } catch (org.json.simple.parser.ParseException e) {
             System.out.println(e.getStackTrace());
         }
-
+        Unirest.shutDown();
         return denumire.equalsIgnoreCase(dateFirma.get("denumire").toString());
     }
 
@@ -119,13 +122,12 @@ public class Utilities {
         if (Integer.parseInt(cnp.substring(0, 1)) == 0) return false;
         if (!isValid(cnp.substring(1, 7))) return false;
 
-        long nrVerificare = 279146358279L;
         long cnpParsed = Long.parseLong(cnp.substring(0, cnp.length() - 1));
         long result = 0L;
         while (cnpParsed > 0) {
-            result += (cnpParsed % 10) * (nrVerificare % 10);
+            result += (cnpParsed % 10) * (CNP_CONTROL_NUMBER % 10);
             cnpParsed = cnpParsed / 10;
-            nrVerificare = nrVerificare / 10;
+            CNP_CONTROL_NUMBER = CNP_CONTROL_NUMBER / 10;
         }
         long rest = result % 11;
         if (rest == 10) rest = 1L;
