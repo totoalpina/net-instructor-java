@@ -16,9 +16,7 @@ import java.util.*;
 
 public class Utilities {
 
-    private static int CIF_CONTROL_NUMBER = 753217532;
-    private static long CNP_CONTROL_NUMBER = 279146358279L;
-    private static String URL_ANAF = "https://webservicesp.anaf.ro/PlatitorTvaRest/api/v5/ws/tva";
+    private static String URL_ANAF = "https://webservicesp.anaf.ro/PlatitorTvaRest/api/v6/ws/tva"; //TODO schimba link-ul
 
     public static long createID() {
         LocalDateTime localDateTime = LocalDateTime.now();
@@ -28,7 +26,7 @@ public class Utilities {
     }
 
     /**
-     * The method verify if a numeric String passed as parameter is valid
+     * The method verify if a numeric String passed as parameter is a valid CIF
      *
      * @param cif string - The CIF to be verified
      * @return boolean value : true - if "cif" is valid,
@@ -49,6 +47,7 @@ public class Utilities {
         int cifraDeControl = Integer.parseInt(cif) % 10;
         int cifToverify = Integer.parseInt(cif) / 10;
         int result = 0;
+        int CIF_CONTROL_NUMBER = 753217532;
         while (cifToverify > 0) {
             result += (cifToverify % 10) * (CIF_CONTROL_NUMBER % 10);
             cifToverify = cifToverify / 10;
@@ -63,11 +62,12 @@ public class Utilities {
         return rest == cifraDeControl;
     }
 
-    /**Verify based on the params if the company is real from ANAF .
+    /**
+     * Verify based on the params if the company is real from ANAF .
      * Method brings information based on the cif in JSON format, and compares if the name
      * inserted is equal with the value from ANAF
      *
-     * @param cif String
+     * @param cif      String
      * @param denumire String
      * @return true if the params match the values from ANAF
      */
@@ -124,6 +124,7 @@ public class Utilities {
 
         long cnpParsed = Long.parseLong(cnp.substring(0, cnp.length() - 1));
         long result = 0L;
+        long CNP_CONTROL_NUMBER = 279146358279L;
         while (cnpParsed > 0) {
             result += (cnpParsed % 10) * (CNP_CONTROL_NUMBER % 10);
             cnpParsed = cnpParsed / 10;

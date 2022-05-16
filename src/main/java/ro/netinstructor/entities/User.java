@@ -46,7 +46,8 @@ public class User {
     public User() {
     }
 
-    public User(@NonNull String email, @NonNull String password, String firstName, String lastName, UserRole userRole, Company company) {
+    public User(@NonNull String email, @NonNull String password, String firstName, String lastName,
+                UserRole userRole, Company company) {
         this.id = Utilities.createID();
         this.email = email;
         this.password = password;
@@ -56,7 +57,8 @@ public class User {
         this.company = company;
     }
 
-    public User(@NonNull String email, @NonNull String password, String firstName, String lastName, UserRole userRole, String verificationCode, boolean enabled) {
+    public User(@NonNull String email, @NonNull String password, String firstName, String lastName,
+                UserRole userRole, String verificationCode, boolean enabled) {
         this.id = Utilities.createID();
         this.email = email;
         this.password = password;

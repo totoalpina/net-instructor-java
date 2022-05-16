@@ -102,8 +102,13 @@ public class UserServiceImpl implements UserService {
         String toAddress = "totoalpina@gmail.com";
         String fromAddress = contactEmail;
         String senderName = contactName;
-        String subject = "Contact form Net-Instructor.ro";
-        String content = contactMsg;
+        String subject = "Contact from Net-Instructor.ro";
+        String content = contactMsg
+                + "\n Sender name: "
+                + contactName
+                + "\n email address:  "
+                + contactEmail
+                ;
 
         MimeMessage message = mailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(message);

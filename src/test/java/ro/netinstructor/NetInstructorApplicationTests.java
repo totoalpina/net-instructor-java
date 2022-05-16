@@ -10,18 +10,17 @@ import ro.netinstructor.utility.Utilities;
 @DisplayName("Teste Aplicatie Net-Instructor")
 class NetInstructorApplicationTests {
 
-
     @Test
     @DisplayName("Test verificare CIF fara litere OK")
     public void testCIfValidationWhenNoLetters() {
-        String cif = "37123525";
+        String cif = "20312023";
         Assertions.assertTrue(Utilities.verificareCif(cif));
     }
 
     @Test
     @DisplayName("Test de verificare CIF ok ")
     public void testCIfValidationWhenLettersOk() {
-        String cif1 = "Ro 42263169";
+        String cif1 = "Ro 20312023";
         String cif2 = "RO42263169";
         String cif3 = "Ro   42263169";
         String cif4 = "  Ro   42263169  ";

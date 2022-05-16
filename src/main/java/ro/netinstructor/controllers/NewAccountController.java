@@ -46,7 +46,11 @@ public class NewAccountController {
     }
 
     @PostMapping("/register")
-    public String saveUser(@Valid final UserDto userDto, @Valid final CompanyDto companyDto, final BindingResult bindingResult, HttpServletRequest request, final Model model)
+    public String saveUser(@Valid final UserDto userDto,
+                           @Valid final CompanyDto companyDto,
+                           final BindingResult bindingResult,
+                           HttpServletRequest request,
+                           final Model model)
             throws UnsupportedEncodingException, MessagingException {
         if (bindingResult.hasErrors()) {
             LOGGER.debug("Errors in the form : {}", bindingResult);
@@ -56,8 +60,8 @@ public class NewAccountController {
         } else {
             if (Utilities.verificareCifAnaf(companyDto.getCif(), companyDto.getName())) {
                 companyService.registerCompany(companyDto);
-                String ciff = companyDto.getCif();
-                Company company = companyRepository.findByCif(ciff).get();
+                String cif = companyDto.getCif();
+                Company company = companyRepository.findByCif(cif).get();
                 userService.save(userDto, getSiteURL(request), company);
                 return "redirect:/index?registered";
             } else {

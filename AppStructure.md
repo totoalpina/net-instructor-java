@@ -13,7 +13,7 @@ Fields
 ### Company
 The company delegate, first enrolls the company and grants the user owner privileges
 "owner" user who will create the company users and sets the role for every user.
-OWNER can acces all the Company sections including reports.
+OWNER can access all the Company sections including reports.
 
 ### Instructor
 Access all the sections that a normal user has privileges.
@@ -53,18 +53,30 @@ Courses and reports specific for Instructors
 - category
 - vehicle_id (vehicle class)
 - expiration date
-- opening date
+- creation date
 - examination date
 - instructor_id (instructor class)
 - person_id (person class)
 - company_id (comapny class)
 - financial report (not decided yet)
-- practical sessions schedule
+- driving practice sessions schedule
 
-### Vehicle (abstract)
+### Vehicle 
 - id
 - registration number
 - kilometeres
 - isFunctional
 - isBroken
-- 
+- model
+- category ()
+- fuel type
+- consumption
+- company (company class)
+- daily statistics (a class maybe)
+
+### Vehicle statistics
+- id
+- date
+- kilometeres
+- vehicle (Vehicle class)
+
