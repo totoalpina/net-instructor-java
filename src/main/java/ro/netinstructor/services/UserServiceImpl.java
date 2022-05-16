@@ -75,12 +75,12 @@ public class UserServiceImpl implements UserService {
         String toAddress = user.getEmail();
         String fromAddress = "cosmin@zenic.ro";
         String senderName = "Net-Instructor";
-        String subject = "Please verify your registration";
+        String subject = "Va rugam sa va verificati inregistrarea pe site-ul Net-Instructor.ro";
         String content = "Dear [[name]],<br>"
-                + "Please click the link below to verify your registration:<br>"
+                + "Accesati link-ul de mai jos pentru a va verifica integistrarea:<br>"
                 + "<h3><a href=\"[[URL]]\" target=\"_self\">VERIFY</a></h3>"
-                + "Thank you,<br>"
-                + "Your company name.";
+                + "Va multumim,<br>"
+                + "NET-Instructor.ro";
 
         MimeMessage message = mailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(message);
@@ -104,7 +104,7 @@ public class UserServiceImpl implements UserService {
         String senderName = contactName;
         String subject = "Contact from Net-Instructor.ro";
         String content = contactMsg
-                + "\n Sender name: "
+                + "\n \n Sender name: "
                 + contactName
                 + "\n email address:  "
                 + contactEmail
