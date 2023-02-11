@@ -92,10 +92,10 @@ public class Utilities {
         }
         Unirest.shutDown();
         String nameToCompare = numeFirma.get("denumire")
-                .toString().replace("S.R.L.", "")
-                .replace("S.A.","")
-                .replace("SRL", "")
-                .replace("SA", "").trim();
+                .toString().replace(" S.R.L.", "")
+                .replace(" S.A.","")
+                .replace(" SRL", "")
+                .replace(" SA", "").trim();
         return denumire.equalsIgnoreCase(nameToCompare);
     }
 

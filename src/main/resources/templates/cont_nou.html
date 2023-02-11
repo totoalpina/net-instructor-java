@@ -86,7 +86,7 @@
                 <div class="col-lg-4 mb-4">
                     <div class="card h-100">
                         <div class="card-body">
-                            <label for="name">Company Name</label><br>
+                            <label for="name">Nume companie <span style="font-size: 9px;">(doar numele, fara SRL, SA)</span></label><br>
                             <div class="col-sm-12">
                                 <input type="text" class="form-control bg-transparent text-black"
                                        th:field="*{companyDto.name}"
@@ -94,15 +94,14 @@
                                 <span class="form-control alert alert-danger text-black"
                                       th:if="${#fields.hasErrors('companyDto.name')}" th:errors="*{companyDto.name}"></span>
                             </div>
-                            <br>
-                            <label for="address">Comapany Address</label><br>
+                            <label for="address">Adresa</label><br>
                             <div class="col-sm-12">
                                 <input type="text" class="form-control bg-transparent text-black" th:field="*{companyDto.address}"
                                        id="address" required>
                                 <span class="form-control alert alert-danger text-black"
                                       th:if="${#fields.hasErrors('companyDto.address')}" th:errors="*{companyDto.address}"></span>
                             </div>
-                            <label for="cif">Company CIF</label><br>
+                            <label for="cif">CIF - CNP</label><br>
                             <div class="col-sm-12">
                                 <input type="text" class="form-control bg-transparent text-black" th:field="*{companyDto.cif}"
                                        id="cif" required>
