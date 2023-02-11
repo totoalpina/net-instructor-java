@@ -23,11 +23,10 @@ public class Company {
     @Column(name = "cif")
     private String cif;
 
-//    @Column(name = "email")
-//    private String email;
+    // @Column(name = "email")
+    // private String email;
 
-    @OneToMany(mappedBy = "company", fetch = FetchType.LAZY
-            , cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "company", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<User> users;
 
     public Company() {
@@ -79,8 +78,10 @@ public class Company {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o)
+            return true;
+        if (o == null || getClass() != o.getClass())
+            return false;
         Company company = (Company) o;
         return cif.equals(company.cif);
     }

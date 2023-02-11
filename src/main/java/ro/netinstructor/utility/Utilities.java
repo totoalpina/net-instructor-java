@@ -16,7 +16,7 @@ import java.util.*;
 
 public class Utilities {
 
-    private static String URL_ANAF = "https://webservicesp.anaf.ro/PlatitorTvaRest/api/v6/ws/tva"; //TODO schimba link-ul
+    private static String URL_ANAF = "https://webservicesp.anaf.ro/PlatitorTvaRest/api/v7/ws/tva"; //TODO schimba link-ul
 
     public static long createID() {
         LocalDateTime localDateTime = LocalDateTime.now();
@@ -79,16 +79,24 @@ public class Utilities {
                 .asString();
 
         JSONObject dateFirma = null;
+        JSONObject numeFirma = null;
         try {
             JSONParser parse = new JSONParser();
             JSONObject dataObject = (JSONObject) parse.parse(response.getBody());
             JSONArray arr = (JSONArray) dataObject.get("found");
             dateFirma = (JSONObject) arr.get(0);
+            numeFirma = (JSONObject) dateFirma.get("date_generale");
+
         } catch (org.json.simple.parser.ParseException e) {
             System.out.println(e.getStackTrace());
         }
         Unirest.shutDown();
-        return denumire.equalsIgnoreCase(dateFirma.get("denumire").toString());
+        String nameToCompare = numeFirma.get("denumire")
+                .toString().replace("S.R.L.", "")
+                .replace("S.A.","")
+                .replace("SRL", "")
+                .replace("SA", "").trim();
+        return denumire.equalsIgnoreCase(nameToCompare);
     }
 
     private static boolean isCifNumeric(String cif) {

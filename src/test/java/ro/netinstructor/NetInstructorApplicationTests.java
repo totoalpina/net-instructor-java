@@ -76,8 +76,8 @@ class NetInstructorApplicationTests {
     @DisplayName("Test verificare companie in ANAF")
     public void testUnirest() {
 
-        Assertions.assertTrue(Utilities.verificareCifAnaf("13839790", "INFO stamPILe SRL"));
-        Assertions.assertFalse(Utilities.verificareCifAnaf("13839790", "Denumire SRL"));
+        Assertions.assertTrue(Utilities.verificareCifAnaf("13839790", "INFO stamPILe"));
+        Assertions.assertFalse(Utilities.verificareCifAnaf("13839790", "Denumire"));
     }
 
 }

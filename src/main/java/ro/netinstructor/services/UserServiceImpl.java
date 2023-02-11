@@ -30,8 +30,6 @@ public class UserServiceImpl implements UserService {
     private JavaMailSender mailSender;
 
 
-
-
     public void register(User user, String siteURL) {
 
     }
@@ -105,7 +103,7 @@ public class UserServiceImpl implements UserService {
         String subject = "Contact from Net-Instructor.ro";
         String content = contactMsg
                 + "\n \n Sender name: "
-                + contactName
+                + senderName
                 + "\n email address:  "
                 + contactEmail
                 ;
