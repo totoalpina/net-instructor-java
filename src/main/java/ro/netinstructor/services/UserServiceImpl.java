@@ -3,9 +3,10 @@ package ro.netinstructor.services;
 import net.bytebuddy.utility.RandomString;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import ro.netinstructor.email.EmailDetail;
+import ro.netinstructor.email.EmailService;
 import ro.netinstructor.entities.Company;
 import ro.netinstructor.entities.User;
 import ro.netinstructor.enums.UserRole;
@@ -13,7 +14,6 @@ import ro.netinstructor.models.UserDto;
 import ro.netinstructor.repositries.UserRepository;
 
 import javax.mail.MessagingException;
-import javax.mail.internet.MimeMessage;
 import java.io.UnsupportedEncodingException;
 import java.util.Optional;
 
@@ -29,10 +29,8 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private JavaMailSender mailSender;
 
-
-    public void register(User user, String siteURL) {
-
-    }
+    @Autowired
+    private EmailService emailService;
 
     @Override
     public Optional<UserDto> findById(final Long id) {
@@ -68,54 +66,34 @@ public class UserServiceImpl implements UserService {
         return userRepository.findByVerificationCode(code);
     }
 
-    private void sendVerificationEmail(User user, String siteURL)
-            throws MessagingException, UnsupportedEncodingException {
+    private void sendVerificationEmail(User user, String siteURL) {
         String toAddress = user.getEmail();
-        String fromAddress = "cosmin@zenic.ro";
-        String senderName = "Net-Instructor";
         String subject = "Va rugam sa va verificati inregistrarea pe site-ul Net-Instructor.ro";
         String content = "Dear [[name]],<br>"
                 + "Accesati link-ul de mai jos pentru a va verifica integistrarea:<br>"
                 + "<h3><a href=\"[[URL]]\" target=\"_self\">VERIFY</a></h3>"
                 + "Va multumim,<br>"
                 + "NET-Instructor.ro";
-
-        MimeMessage message = mailSender.createMimeMessage();
-        MimeMessageHelper helper = new MimeMessageHelper(message);
-        helper.setFrom(fromAddress, senderName);
-        helper.setTo(toAddress);
-        helper.setSubject(subject);
         content = content.replace("[[name]]", user.getFullName());
         String verifyURL = siteURL + "/verify?code=" + user.getVerificationCode();
         content = content.replace("[[URL]]", verifyURL);
-        helper.setText(content, true);
-
-        mailSender.send(message);
+        EmailDetail email = new EmailDetail(toAddress, content, subject);
+        emailService.sendEmail(email);
     }
 
     @Override
-    public void sendContactMail(String contactEmail, String contactName, String contactMsg)
-            throws MessagingException, UnsupportedEncodingException {
+    public void sendContactMail(String contactEmail, String contactName, String contactMsg) {
 
-        String toAddress = "totoalpina@gmail.com";
-        String fromAddress = contactEmail;
-        String senderName = contactName;
+        String toAddress = "cosminbondoi@gmail.com";
         String subject = "Contact from Net-Instructor.ro";
         String content = contactMsg
                 + "\n \n Sender name: "
-                + senderName
+                + contactName
                 + "\n email address:  "
-                + contactEmail
-                ;
+                + contactEmail;
 
-        MimeMessage message = mailSender.createMimeMessage();
-        MimeMessageHelper helper = new MimeMessageHelper(message);
-        helper.setFrom(fromAddress);
-        helper.setTo(toAddress);
-        helper.setSubject(subject);
-        helper.setText(content);
-
-        mailSender.send(message);
+        EmailDetail email = new EmailDetail(toAddress, content, subject);
+        emailService.sendEmail(email);
     }
 
     public boolean verify(String verificationCode) {

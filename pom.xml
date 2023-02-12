@@ -71,6 +71,14 @@
             <artifactId>unirest-java</artifactId>
             <version>3.12.0</version>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.26</version>
+            <scope>provided</scope>
+        </dependency>
+
 
         <!-- OR as a snazzy new standalone jar with shaded dependencies -->
         <dependency>
