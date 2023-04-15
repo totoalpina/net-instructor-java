@@ -71,7 +71,7 @@ public class Utilities {
      * @param denumire String
      * @return true if the params match the values from ANAF
      */
-    public static boolean verificareCifAnaf(String cif, String denumire) {
+    public static boolean verificareCifAnaf(String denumire, String cif) {
         LocalDate date = LocalDate.now();
         HttpResponse<String> response = Unirest.post(URL_ANAF)
                 .header("Content-Type", "application/json")

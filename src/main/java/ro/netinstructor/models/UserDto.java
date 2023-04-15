@@ -1,12 +1,12 @@
 package ro.netinstructor.models;
 
-import ro.netinstructor.entities.Company;
-import ro.netinstructor.enums.UserRole;
-import ro.netinstructor.validators.UniqueEmail;
-
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
+
+import ro.netinstructor.entities.Company;
+import ro.netinstructor.enums.UserRole;
+import ro.netinstructor.validators.UniqueEmail;
 
 public class UserDto {
     @NotBlank
@@ -40,7 +40,8 @@ public class UserDto {
         this.lastName = lastName;
     }
 
-    public UserDto(String email, String password, String firstName, String lastName, UserRole userRole, Company company) {
+    public UserDto(String email, String password, String firstName, String lastName, UserRole userRole,
+            Company company) {
         this.email = email;
         this.password = password;
         this.firstName = firstName;
@@ -97,4 +98,3 @@ public class UserDto {
         this.company = company;
     }
 }
-
