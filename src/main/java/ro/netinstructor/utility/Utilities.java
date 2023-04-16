@@ -16,7 +16,8 @@ import java.util.*;
 
 public class Utilities {
 
-    private static String URL_ANAF = "https://webservicesp.anaf.ro/PlatitorTvaRest/api/v7/ws/tva"; //TODO schimba link-ul
+    private static String URL_ANAF = "https://webservicesp.anaf.ro/PlatitorTvaRest/api/v7/ws/tva"; // TODO schimba
+                                                                                                   // link-ul
 
     public static long createID() {
         LocalDateTime localDateTime = LocalDateTime.now();
@@ -30,10 +31,11 @@ public class Utilities {
      *
      * @param cif string - The CIF to be verified
      * @return boolean value : true - if "cif" is valid,
-     * : false if not
+     *         : false if not
      */
     public static boolean verificareCif(String cif) {
-        if ("".equals(cif) || cif == null) return false;
+        if ("".equals(cif) || cif == null)
+            return false;
         cif = cif.trim();
         String prefix = "ro";
         String cifPrefix = cif.substring(0, 2).toLowerCase();
@@ -41,8 +43,10 @@ public class Utilities {
             cif = cif.substring(2).trim();
         }
 
-        if (cif.length() > 10 || cif.length() < 2) return false;
-        if (!isCifNumeric(cif)) return false;
+        if (cif.length() > 10 || cif.length() < 2)
+            return false;
+        if (!isCifNumeric(cif))
+            return false;
 
         int cifraDeControl = Integer.parseInt(cif) % 10;
         int cifToverify = Integer.parseInt(cif) / 10;
@@ -64,7 +68,8 @@ public class Utilities {
 
     /**
      * Verify based on the params if the company is real from ANAF .
-     * Method brings information based on the cif in JSON format, and compares if the name
+     * Method brings information based on the cif in JSON format, and compares if
+     * the name
      * inserted is equal with the value from ANAF
      *
      * @param cif      String
@@ -93,7 +98,7 @@ public class Utilities {
         Unirest.shutDown();
         String nameToCompare = numeFirma.get("denumire")
                 .toString().replace(" S.R.L.", "")
-                .replace(" S.A.","")
+                .replace(" S.A.", "")
                 .replace(" SRL", "")
                 .replace(" SA", "").trim();
         return denumire.equalsIgnoreCase(nameToCompare);
@@ -107,7 +112,8 @@ public class Utilities {
             cif = cif.substring(2).trim();
         }
 
-        if (cif == null) return false;
+        if (cif == null)
+            return false;
         try {
             int n = Integer.parseInt(cif);
         } catch (NumberFormatException nfe) {
@@ -121,14 +127,19 @@ public class Utilities {
      *
      * @param cnp string - The CNP to be verified
      * @return boolean value : true - if cnp is valid,
-     * : false if not
+     *         : false if not
      */
     public static boolean verificareCnp(String cnp) {
-        if (cnp == null || cnp.equals("")) return false;
-        if (!isCnpNumeric(cnp)) return false;
-        if (cnp.length() != 13) return false;
-        if (Integer.parseInt(cnp.substring(0, 1)) == 0) return false;
-        if (!isValid(cnp.substring(1, 7))) return false;
+        if (cnp == null || cnp.equals(""))
+            return false;
+        if (!isCnpNumeric(cnp))
+            return false;
+        if (cnp.length() != 13)
+            return false;
+        if (Integer.parseInt(cnp.substring(0, 1)) == 0)
+            return false;
+        if (!isValid(cnp.substring(1, 7)))
+            return false;
 
         long cnpParsed = Long.parseLong(cnp.substring(0, cnp.length() - 1));
         long result = 0L;
@@ -139,7 +150,8 @@ public class Utilities {
             CNP_CONTROL_NUMBER = CNP_CONTROL_NUMBER / 10;
         }
         long rest = result % 11;
-        if (rest == 10) rest = 1L;
+        if (rest == 10)
+            rest = 1L;
 
         return rest == Integer.parseInt(cnp.substring(12));
 
@@ -147,7 +159,7 @@ public class Utilities {
 
     private static boolean isCnpNumeric(String str) {
         try {
-            Long n = Long.parseLong(str);
+            Long.parseLong(str);
         } catch (NumberFormatException nfe) {
             return false;
         }
